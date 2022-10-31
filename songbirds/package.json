@@ -1,0 +1,47 @@
+{
+  "name": "songbirds",
+  "version": "1.0.0",
+  "private": true,
+  "main": ".eslintrc.js",
+  "scripts": {
+    "start": "webpack serve --env development",
+    "build": "webpack",
+    "lint": "eslint **/*.js",
+    "lint-fix": "eslint --fix **/*.js",
+    "format": "prettier -w ."
+  },
+  "lint-staged": {
+    "*.(js|jsx)": [
+      "npm run lint-fix",
+      "format",
+      "git add"
+    ]
+  },
+  "author": "Viktor Elenich",
+  "license": "ISC",
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "html-loader": "^4.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "lint-staged": "^13.0.3",
+    "mini-css-extract-plugin": "^2.6.1",
+    "prettier": "^2.7.1",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.2",
+    "sass-resources-loader": "^2.2.5",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
+    "webpack-remove-empty-scripts": "^0.8.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-html": "^6.2.0"
+  }
+}
