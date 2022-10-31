@@ -1,5 +1,6 @@
 @import "./styles/abstract/_variables";
 @import "./styles/layout/_header";
+@import "./styles/layout/_footer";
 
 * {
   margin: 0;
@@ -10,4 +11,7 @@ body {
   box-sizing: border-box;
   background: $dark;
   color: $main-color;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

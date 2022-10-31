@@ -1,0 +1,30 @@
+@import "../abstract/_variables";
+
+.footer {
+  min-height: 70px;
+  flex: 0 0 auto;
+
+  &-container {
+    max-width: 90%;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__author {
+      text-decoration: none;
+      color: $main-color;
+    }
+
+    &__logo-rss {
+      background: url("./assets/logo_rs.png") no-repeat;
+      background-size: contain;
+      width: 100%;
+      max-width: 115px;
+      height: 60px;
+    }
+  }
+}
