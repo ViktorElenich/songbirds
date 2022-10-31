@@ -20,6 +20,7 @@
   "author": "Viktor Elenich",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",

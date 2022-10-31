@@ -1,0 +1,13 @@
+@import "./styles/abstract/_variables";
+@import "./styles/layout/_header";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  background: $dark;
+  color: $main-color;
+}
