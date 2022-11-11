@@ -1,3 +1,78 @@
-.main {
-  flex: 1 0 auto;
+@import "../abstract/_variables";
+@import "../abstract/_mixins";
+
+.main-page {
+  height: calc(100vh - 135px);
+
+  .container {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to bottom,  rgba(255,168,76,0.6)
+    0%,rgba(255,123,13,0.6) 100%),
+    url("./assets/background.jpg");
+    background-blend-mode: soft-light;
+    background-size: cover;
+    background-position: center center;
+
+    .logo__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      width: 25rem;
+      height: 9.8rem;
+      border: 3px solid $dark;
+      border-radius: 15px;
+      background-color: $gray-dark;
+      backdrop-filter: blur(6px);
+
+      .logo {
+        background: url("./assets/logo.svg") no-repeat;
+        background-size: cover;
+        max-width: 250px;
+        width: 100%;
+        height: 68px
+      }
+    }
+
+    .bird {
+      background-image: url("./assets/bird.gif");
+      background-size: auto 100%;
+      width: 170px;
+      height: 100px;
+    }
+
+    .bird-container {
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      transform: scale(0) translateX(-10vw);
+      will-change: transform;
+      animation-name: fly-right-one;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+
+      &--one {
+        animation-duration: 15s;
+        animation-delay: 0s;
+      }
+      &--two {
+        animation-duration: 16s;
+        animation-delay: 1s;
+      }
+      &--three {
+        animation-duration: 14.6s;
+        animation-delay: 9.5s;
+      }
+      &--four {
+        animation-duration: 16s;
+        animation-delay: 10.25s;
+      }
+    }
+  }
 }

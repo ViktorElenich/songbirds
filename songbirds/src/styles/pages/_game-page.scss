@@ -1,0 +1,127 @@
+@import "../abstract/_variables";
+
+.game-page {
+  height: calc(100vh - 135px);
+
+  &__container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding-top: 25px;
+
+    &-navigation {
+      width: 100%;
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: $nav-game-color;
+
+        &-item {
+          width: 100%;
+          text-align: center;
+          font-size: 1.2em;
+
+          &.active {
+            background-color: $nav-game-color-active;
+          }
+        }
+      }
+    }
+
+    &-question {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      padding: 10px;
+      background-color: $gray-dark;
+      border-radius: 10px;
+      margin-top: 15px;
+
+      .question-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 80%;
+        &__block {
+          display: flex;
+          flex-direction: column;
+
+          .block-item {
+            border-bottom: 2px solid gray;
+            padding: 10px 0;
+
+            &:last-child {
+              border-bottom: 0;
+            }
+          }
+
+          .audio-player {
+
+            .playpause-track {
+              grid-area: play;
+              width: 45px;
+              padding: 15px 15px 15px 0;
+              opacity: 0.8;
+              transition: opacity .4s;
+
+              &:hover {
+                opacity: 1.0;
+              }
+
+              .fa-5x {
+                font-size: 3em;
+              }
+            }
+
+            .player-slider__container {
+              display: flex;
+              align-items: center;
+
+              .seek_slider {
+                width: 60%;
+                flex-grow: 1;
+              }
+
+              .volume_slider {
+                width: 30%;
+              }
+
+              .seek_slider,
+              .volume_slider {
+                appearance: none;
+                height: 5px;
+                background: #83a9ff;
+                transition: opacity .2s;
+                border-radius: 2px;
+
+                &::-webkit-slider-thumb {
+                  appearance: none;
+                  width: 15px;
+                  height: 15px;
+                  background: white;
+                  border: 3px solid #3774ff;
+                  cursor: pointer;
+                  border-radius: 100%;
+                }
+
+                &:hover {
+                  opacity: 1.0;
+                }
+              }
+
+              .current-time,
+              .total-duration {
+                padding: 10px;
+              }
+              i.fa-volume-down,
+              i.fa-volume-up {
+                padding: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

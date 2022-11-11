@@ -1,6 +1,8 @@
 @import "./styles/abstract/_variables";
 @import "./styles/layout/_header";
+@import "./styles/layout/_main";
 @import "./styles/layout/_footer";
+@import "./styles/pages/_game-page";
 
 * {
   margin: 0;
@@ -14,4 +16,12 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }
