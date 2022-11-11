@@ -1,3 +1,5 @@
+@import './_variables';
+
 @keyframes fly-right-one {
   0% {
     transform: scale(0.3) translateX(-10vw);
@@ -51,3 +53,4 @@
     transform: translateY(0vh) translateX(110vw) scale(0.45);
   }
 }
+

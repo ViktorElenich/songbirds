@@ -1,10 +1,17 @@
 import { Page } from "../../js/templates/pages";
-import { customCreateElement } from "../../js/utils/utils";
-import {GameNavigation} from "../../helpers";
+import {customCreateElement, shuffle} from "../../js/utils/utils";
+import { GameNavigation } from "../../helpers";
+import {ANSWERS_COUNT} from "../../helpers/const";
 
 export class GamePage extends Page {
   constructor(id) {
     super(id);
+    this.allQuestions = [];
+    this.questions = [];
+    this.correctAnswers = [];
+    this.currentQuestion = 0;
+    this.rightAnswer = '';
+    this.isCorrect = false;
   }
 
   renderWrapper() {
@@ -57,9 +64,57 @@ export class GamePage extends Page {
     questionBlock.append(questionBlockUl);
     gameContainerQuestion.append(questionImg, questionBlock);
 
-    gameContainer.append(gameContainerNav, gameContainerQuestion);
+    const gameAnswerContainer = customCreateElement('div', 'game-page__container-answer');
+    const answerBlock = customCreateElement('div', 'answer-container');
+    const answerInfo = customCreateElement('div', 'answer-info');
+
+    answerBlock.innerHTML = `
+      <div class="quiz__answers " id="quizAnswers">
+        <button class="answer-btn answer"></button>
+        <button class="answer-btn answer"></button>
+        <button class="answer-btn answer"></button>
+        <button class="answer-btn answer"></button>
+        <button class="answer-btn answer"></button>
+        <button class="answer-btn answer"></button>
+      </div>
+    `
+
+    gameAnswerContainer.append(answerBlock, answerInfo)
+
+    gameContainer.append(gameContainerNav, gameContainerQuestion, gameAnswerContainer);
     gamePage.append(gameContainer);
     this.container.append(gamePage);
+  }
+
+  generateAnswers() {
+    const answers = [];
+
+    const rightAnswer = this.questions[this.currentQuestion].name;
+    this.rightAnswer = rightAnswer;
+    answers.push(rightAnswer);
+
+    while (answers.length < ANSWERS_COUNT) {
+      const randomAnswer = this.allQuestions[Math.floor(Math.random() * this.allQuestions.length)];
+
+      if (!answers.includes(randomAnswer.name)) {
+        answers.push(randomAnswer.name);
+      }
+    }
+    shuffle(answers);
+    this.answersEl.forEach((el, idx) => (el.textContent = answers[idx]));
+
+    this.answersEl.forEach((el) => {
+      el.classList.remove('correct');
+      el.classList.remove('incorrect');
+    })
+  }
+
+  disableAnswer() {
+    this.answersEl.forEach((btn) => (btn.disabled = !btn.disabled));
+  }
+
+  findElements() {
+    this.answersEl = document.querySelectorAll('.answer');
   }
 
   render() {
