@@ -6,7 +6,7 @@ const links = [
     className: 'footer-container__author',
     href: 'https://github.com/ViktorElenich',
     target: '_blank',
-    text: '© 2021 Viktor Elenich'
+    text: '© 2022 Viktor Elenich'
   },
   {
     className: 'footer-container__logo-rss',
