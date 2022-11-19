@@ -23,10 +23,12 @@ export const Navigation = [
 ]
 
 export const GameNavigation = [
-  {category: 'Разминка'},
-  {category: 'Воробьиные'},
-  {category: 'Лесные птицы'},
-  {category: 'Певчие птицы'},
-  {category: 'Хищные птицы'},
-  {category: 'Морские птицы'}
+  {category: 'Warm up'},
+  {category: 'Passerines'},
+  {category: 'Forest'},
+  {category: 'Songbirds'},
+  {category: 'Predatory'},
+  {category: 'Sea'}
 ]
+
+export const tableTh = ['№', 'Name', 'Score']

@@ -10,6 +10,7 @@
     z-index: 1;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-image: linear-gradient(to bottom,  rgba(255,168,76,0.6)
@@ -37,6 +38,32 @@
         max-width: 250px;
         width: 100%;
         height: 68px
+      }
+    }
+
+    .btn-start {
+      margin-top: 50px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      text-align: center;
+      color: white;
+      width: 20rem;
+      height: 3.75rem;
+      border: 3px solid $dark;
+      background-color: $gray-dark;
+      backdrop-filter: blur(6px);
+      border-radius: 15px;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 300ms ease-in-out;
+      box-shadow: 0 0 40px 40px #3a5a604d inset, 0 0 0 0 #364a4e4d;;
+      &:hover {
+        box-shadow: 0 0 10px 0 #bbc3c9 inset, 0 0 10px 4px #bac7cf;
       }
     }
 

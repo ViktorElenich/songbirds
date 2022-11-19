@@ -1,5 +1,5 @@
 import { Page } from "../../js/templates/pages";
-import {customCreateElement} from "../../js/utils/utils";
+import { customCreateElement } from "../../js/utils/utils";
 
 export class MainPage extends Page {
   constructor(id) {
@@ -19,6 +19,7 @@ export class MainPage extends Page {
         <div class="logo__container">
           <h1 class="logo"></h1>
         </div>
+        <a href="#game-page" class="btn-start">Start</a>
         <div class="bird-container bird-container--one">
           <div class="bird bird--one"></div>
         </div>
@@ -33,6 +34,8 @@ export class MainPage extends Page {
         </div>
       </div>
     `;
+    this.scoreCont = document.querySelector('.header-container__score');
+    this.scoreCont.innerHTML = `Score: 0`;
     this.container.append(mainPage);
   }
 

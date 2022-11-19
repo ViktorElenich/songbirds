@@ -4,6 +4,7 @@
 @import "./styles/layout/_main";
 @import "./styles/layout/_footer";
 @import "./styles/pages/_game-page";
+@import "./styles/pages/_score-page";
 
 * {
   margin: 0;
@@ -26,6 +27,7 @@ ul, li {
 
 a {
   text-decoration: none;
+  font-family: 'Circular-Loom';
 }
 
 button {

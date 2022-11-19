@@ -1,5 +1,5 @@
 import { Page } from "../../js/templates/pages";
-import {customCreateElement, getRandomNum, setToLocalStorage, shuffle} from "../../js/utils/utils";
+import { customCreateElement, getRandomNum, setToLocalStorage, shuffle } from "../../js/utils/utils";
 import { GameNavigation } from "../../helpers";
 import { ANSWERS_COUNT } from "../../helpers/const";
 import birdsData from "../../data/data";
@@ -374,7 +374,7 @@ export class GamePage extends Page {
         <input type="text" placeholder="Enter Your Name" class="reg" />
         <div class="btn__container">
           <button class="modal__button modal__button-width new">New Game</button>
-          <button class="modal__button modal__button-width save">Save</button>
+          <a href="#score-page" class="modal__button modal__button-width save">Save</a>
         </div>
       </div>
     `
@@ -396,11 +396,16 @@ export class GamePage extends Page {
     });
     this.saveGameBtn.addEventListener('click', () => {
       const input = document.querySelector('.reg').value;
+      let arr = [];
+      if (localStorage.getItem('score')) {
+        arr = JSON.parse(localStorage.getItem('score'))
+      }
       const res = {
         name: input,
         score: this.score
       };
-      setToLocalStorage('score', JSON.stringify(res));
+      arr.push(res)
+      setToLocalStorage('score', JSON.stringify(arr));
     })
   }
   showModalResult() {
@@ -438,8 +443,8 @@ export class GamePage extends Page {
 
   async afterRender() {
     this.findElements();
+    this.scoreCont.innerHTML = `Score: ${this.score}`;
     this.generateAnswers();
     this.listeners();
-    this.showResult()
   }
 }

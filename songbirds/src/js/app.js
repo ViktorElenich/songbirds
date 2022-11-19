@@ -4,6 +4,7 @@ import { Footer } from "./components/footer/footer";
 import { Page } from "./templates/pages";
 import { MainPage } from "../pages/main/main-page";
 import { GamePage } from "../pages/game/game-page";
+import { ScorePage } from "../pages/score/score-page";
 import { PageIds } from "../helpers";
 
 export class App {
@@ -30,6 +31,8 @@ export class App {
       page = new MainPage(id);
     } else if (id === PageIds.GamePageID) {
       page = new GamePage(id);
+    } else if (id === PageIds.ScorePageID) {
+      page = new ScorePage(id)
     }
 
     if (page) {
@@ -51,11 +54,11 @@ export class App {
   run() {
     App.container.append(this.header.render());
     App.container.append(this.main.render());
-    App.renderNewPage('game-page');
+    App.renderNewPage('main-page');
     App.container.append(this.footer.render());
     this.enableRouteChange();
 
-    window.location.replace("#game-page");
+    window.location.replace("#main-page");
     if (typeof window.history.replaceState == "function") {
       history.replaceState({}, "", window.location.href.slice(0, 0));
     }

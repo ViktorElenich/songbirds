@@ -1,9 +1,10 @@
 import birdsData from "../../data/data";
 
-export const customCreateElement = (tagName, className, id) => {
+export const customCreateElement = (tagName, className, id, text) => {
   const element = document.createElement(tagName);
   if (className) element.className = className;
   if (id) element.id = className;
+  if (text) element.textContent = text;
   return element;
 }
 
