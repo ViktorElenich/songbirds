@@ -1,5 +1,6 @@
 @import "../abstract/_variables";
 @import "../abstract/_mixins";
+@import "../components/_modal-popup";
 
 .game-page {
   height: calc(100vh - 135px);
@@ -23,7 +24,8 @@
           border-radius: 5px;
           width: 100%;
           text-align: center;
-          font-size: 1.2em;
+          white-space: nowrap;
+          font-size: 18px;
 
           &.active {
             background-color: $nav-game-color-active;
@@ -60,7 +62,7 @@
           .block-item {
             border-bottom: 2px solid gray;
             padding: 0 0 10px;
-            font-size: 22px;
+            font-size: 18px;
 
             &:last-child {
               border-bottom: 0;
@@ -82,6 +84,9 @@
 
               .fa-5x {
                 font-size: 3em;
+                @include _1200 {
+                  font-size: 2em;
+                }
               }
             }
 
@@ -102,7 +107,7 @@
               .volume_slider {
                 appearance: none;
                 height: 5px;
-                background: #83a9ff;
+                background: $nav-game-color-active;
                 transition: opacity .2s;
                 border-radius: 2px;
 
@@ -111,7 +116,7 @@
                   width: 15px;
                   height: 15px;
                   background: white;
-                  border: 3px solid #3774ff;
+                  border: 3px solid $nav-game-color-active;
                   cursor: pointer;
                   border-radius: 100%;
                 }
@@ -124,6 +129,7 @@
               .current-time,
               .total-duration {
                 padding: 10px;
+                font-size: 18px;
               }
               i.fa-volume-down,
               i.fa-volume-up {
@@ -152,53 +158,6 @@
           flex-direction: column;
           gap: 5px;
 
-          .answer-btn {
-            padding: 15px;
-            font-weight: 800;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #1111115e;
-            position: relative;
-
-            &:before {
-              content: '';
-              background: $btn-gradient;
-              position: absolute;
-              top: -2px;
-              left:-2px;
-              background-size: 400%;
-              z-index: -1;
-              filter: blur(5px);
-              width: calc(100% + 4px);
-              height: calc(100% + 4px);
-              animation: glowing 20s linear infinite;
-              opacity: 0;
-              transition: opacity .3s ease-in-out;
-              border-radius: 10px;
-            }
-            &:active {
-              color: #000
-            }
-            &:active:after {
-              background: transparent;
-            }
-            &:hover:before {
-              opacity: 1;
-            }
-            &:after {
-              z-index: -1;
-              content: '';
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              background: #111;
-              left: 0;
-              top: 0;
-              border-radius: 10px;
-            }
-          }
-
           .answer {
             &.correct {
               background: $btn-color-correct;
@@ -215,6 +174,108 @@
         background-color: $gray-dark;
         border-radius: 10px;
         width: 55%;
+        &__container {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          img {
+            width: 30%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+          }
+          &-block {
+            width: 70%;
+            .block-item {
+              border-bottom: 2px solid gray;
+              font-size: 18px;
+              margin-bottom: 5px;
+
+              &:nth-child(3) {
+                border-bottom: 0;
+              }
+            }
+
+            .audio-player {
+
+              .playpause-track {
+                grid-area: play;
+                width: 45px;
+                padding: 5px 5px 5px 0;
+                opacity: 0.8;
+                transition: opacity .4s;
+
+                &:hover {
+                  opacity: 1.0;
+                }
+
+                .fa-5x {
+                  font-size: 2em;
+                  @include _1200 {
+                    font-size: 1em;
+                  }
+                }
+              }
+
+              .player-slider__container {
+                display: flex;
+                align-items: center;
+
+                .seek_slider {
+                  width: 60%;
+                  flex-grow: 1;
+                }
+
+                .volume_slider {
+                  width: 30%;
+                }
+
+                .seek_slider,
+                .volume_slider {
+                  appearance: none;
+                  height: 5px;
+                  background: $nav-game-color-active;
+                  transition: opacity .2s;
+                  border-radius: 2px;
+
+                  &::-webkit-slider-thumb {
+                    appearance: none;
+                    width: 15px;
+                    height: 15px;
+                    background: white;
+                    border: 3px solid $nav-game-color-active;
+                    cursor: pointer;
+                    border-radius: 100%;
+                  }
+
+                  &:hover {
+                    opacity: 1.0;
+                  }
+                }
+
+                .current-time,
+                .total-duration {
+                  padding: 5px;
+                  font-size: 18px;
+                }
+                i.fa-volume-down,
+                i.fa-volume-up {
+                  padding: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &-nextLevel-btn {
+      width: 100%;
+      margin-top: 15px;
+
+      &.btn-next {
+        background: #076a51;
+        transition: all 0.3s ease-in-out;
       }
     }
   }
