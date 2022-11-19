@@ -11,8 +11,10 @@ export class MainPage extends Page {
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
     const scoreLink = document.querySelector('.link__score');
+    const galleryLink = document.querySelector('.link__gallery');
     gameLink.classList.remove('active');
     scoreLink.classList.remove('active');
+    galleryLink.classList.remove('active');
     homeLink.classList.add('active');
     mainPage.innerHTML = `
       <div class="container">

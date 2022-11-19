@@ -1,0 +1,116 @@
+@import "../abstract/_variables";
+@import "../abstract/_mixins";
+
+.gallery-page {
+  height: calc(100vh - 135px);
+  overflow-x: hidden;
+
+  &__container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 25px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 15px;
+
+    &-items {
+      padding: 10px;
+      background-color: $gray-dark;
+      border-radius: 10px;
+
+      .item-info__container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 5px;
+        img {
+          width: 30%;
+          height: 150px;
+          object-fit: cover;
+          border-radius: 6px;
+        }
+        &-block {
+          width: 70%;
+          .block-item {
+            border-bottom: 2px solid gray;
+            font-size: 18px;
+            margin-bottom: 5px;
+
+            &:nth-child(3) {
+              border-bottom: 0;
+            }
+          }
+
+          .audio-player {
+
+            .playpause-track {
+              grid-area: play;
+              width: 45px;
+              padding: 5px 5px 5px 0;
+              opacity: 0.8;
+              transition: opacity .4s;
+
+              &:hover {
+                opacity: 1.0;
+              }
+
+              .fa-5x {
+                font-size: 2em;
+                @include _1200 {
+                  font-size: 1em;
+                }
+              }
+            }
+
+            .player-slider__container {
+              display: flex;
+              align-items: center;
+
+              .seek_slider {
+                width: 60%;
+                flex-grow: 1;
+              }
+
+              .volume_slider {
+                width: 30%;
+              }
+
+              .seek_slider,
+              .volume_slider {
+                appearance: none;
+                height: 5px;
+                background: $nav-game-color-active;
+                transition: opacity .2s;
+                border-radius: 2px;
+
+                &::-webkit-slider-thumb {
+                  appearance: none;
+                  width: 15px;
+                  height: 15px;
+                  background: white;
+                  border: 3px solid $nav-game-color-active;
+                  cursor: pointer;
+                  border-radius: 100%;
+                }
+
+                &:hover {
+                  opacity: 1.0;
+                }
+              }
+
+              .current-time,
+              .total-duration {
+                padding: 5px;
+                font-size: 18px;
+              }
+              i.fa-volume-down,
+              i.fa-volume-up {
+                padding: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

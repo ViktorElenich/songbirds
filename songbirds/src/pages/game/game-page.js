@@ -27,8 +27,10 @@ export class GamePage extends Page {
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
     const scoreLink = document.querySelector('.link__score');
+    const galleryLink = document.querySelector('.link__gallery');
     homeLink.classList.remove('active');
     scoreLink.classList.remove('active');
+    galleryLink.classList.remove('active');
     gameLink.classList.add('active');
 
     const gameContainer = customCreateElement('div', 'game-page__container');
@@ -90,7 +92,7 @@ export class GamePage extends Page {
     `;
 
     answerInfo.innerHTML = `
-      <p style="text-align: center; font-size: 2vw;">Послушайте плеер. Выберите птицу из списка</p>
+      <p style="text-align: center; font-size: 2vw;">Play song. Choose correct answer</p>
     `;
 
     gameAnswerContainer.append(answerBlock, answerInfo);

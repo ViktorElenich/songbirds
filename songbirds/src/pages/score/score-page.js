@@ -12,8 +12,10 @@ export class ScorePage extends Page {
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
     const scoreLink = document.querySelector('.link__score');
+    const galleryLink = document.querySelector('.link__gallery');
     homeLink.classList.remove('active');
     gameLink.classList.remove('active');
+    galleryLink.classList.remove('active');
     scoreLink.classList.add('active');
 
     this.scoreCont = document.querySelector('.header-container__score');

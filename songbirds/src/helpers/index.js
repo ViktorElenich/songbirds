@@ -1,7 +1,8 @@
 export const PageIds = {
   MainPageID: 'main-page',
   GamePageID: 'game-page',
-  ScorePageID: 'score-page'
+  ScorePageID: 'score-page',
+  GalleryPageID: 'gallery-page'
 }
 
 export const Navigation = [
@@ -19,6 +20,11 @@ export const Navigation = [
     id: PageIds.ScorePageID,
     className: 'link__score link',
     text: 'Score'
+  },
+  {
+    id: PageIds.GalleryPageID,
+    className: 'link__gallery link',
+    text: 'Gallery'
   }
 ]
 
