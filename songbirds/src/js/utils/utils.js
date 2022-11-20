@@ -1,4 +1,4 @@
-import birdsData from "../../data/data";
+import { birdsDataEn } from "../../data/data";
 
 export const customCreateElement = (tagName, className, id, text) => {
   const element = document.createElement(tagName);
@@ -21,5 +21,5 @@ export const shuffle = (array) => {
 }
 
 export const getRandomNum = (level) => {
-  return Math.floor(Math.random() * (birdsData[level].length - 0) + 0);
+  return Math.floor(Math.random() * (birdsDataEn[level].length - 0) + 0);
 }

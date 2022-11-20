@@ -2,12 +2,12 @@ import { Page } from "../../js/templates/pages";
 import { customCreateElement, getRandomNum, setToLocalStorage, shuffle } from "../../js/utils/utils";
 import { GameNavigation } from "../../helpers";
 import { ANSWERS_COUNT } from "../../helpers/const";
-import birdsData from "../../data/data";
+import { birdsDataEn, birdsData } from "../../data/data";
 
 export class GamePage extends Page {
   constructor(id) {
     super(id);
-    this.langValue = 'en';
+    this.lang = localStorage.getItem('lang') || 'en';
     this.questions = [];
     this.correctAnswers = [];
     this.currentQuestion = 0;
@@ -22,7 +22,7 @@ export class GamePage extends Page {
     this.currentClick = null;
   }
 
-  renderWrapper() {
+  renderWrapper(lang) {
     const gamePage = customCreateElement('div', 'game-page');
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
@@ -38,7 +38,7 @@ export class GamePage extends Page {
     const ul = customCreateElement('ul', 'navigation');
     GameNavigation.forEach((nav, idx) => {
       const li = customCreateElement('li', `${idx === this.level ? 'navigation-item active' : 'navigation-item'}`);
-      li.textContent = nav.category;
+      li.textContent = nav.category[lang];
       li.id = idx;
       ul.append(li);
       li.id === this.level ? li.className = 'navigation-item' : 'navigation-item level';
@@ -92,13 +92,15 @@ export class GamePage extends Page {
     `;
 
     answerInfo.innerHTML = `
-      <p style="text-align: center; font-size: 2vw;">Play song. Choose correct answer</p>
+      <p style="text-align: center; font-size: 2vw;">
+        ${this.lang === 'en' ? 'Play song. Choose correct answer' : 'Послушайте плеер. Выберите птицу из списка'}
+      </p>
     `;
 
     gameAnswerContainer.append(answerBlock, answerInfo);
 
     const nextLevelBtn = customCreateElement('button', 'game-page__container-nextLevel-btn');
-    nextLevelBtn.textContent = 'Next Level';
+    nextLevelBtn.textContent = `${lang === 'en' ? 'Next Level' : 'Следующий уровень'}`;
 
     gameContainer.append(gameContainerNav, gameContainerQuestion, gameAnswerContainer, nextLevelBtn);
     gamePage.append(gameContainer);
@@ -111,21 +113,22 @@ export class GamePage extends Page {
     }
   }
 
-  generateAnswers() {
+  generateAnswers(lang) {
     const answer = [];
     this.currentQuestion = getRandomNum(this.level);
+    const langData = lang === 'en' || !lang ? birdsDataEn : birdsData;
 
-    const rightAnswer = birdsData[this.level][this.currentQuestion].name;
-    this.audio.src = birdsData[this.level][this.currentQuestion].audio;
-    const id = birdsData[this.level][this.currentQuestion];
+    const rightAnswer = langData[this.level][this.currentQuestion].name;
+    this.audio.src = langData[this.level][this.currentQuestion].audio;
+    const id = langData[this.level][this.currentQuestion];
     console.log(rightAnswer)
 
-    this.audioPlayer(this.mainPlayer, birdsData[this.level][this.currentQuestion].audio, this.audio);
+    this.audioPlayer(this.mainPlayer, langData[this.level][this.currentQuestion].audio, this.audio);
     this.rightAnswer = rightAnswer;
     answer.push(id);
 
     while (answer.length < ANSWERS_COUNT) {
-      const randomAnswer = birdsData[this.level][Math.floor(Math.random() * birdsData[this.level].length)];
+      const randomAnswer = langData[this.level][Math.floor(Math.random() * langData[this.level].length)];
 
       if (!answer.includes(randomAnswer)) {
         answer.push(randomAnswer)
@@ -162,7 +165,7 @@ export class GamePage extends Page {
       const { target } = event;
       const isAnswer = target.classList.contains('answer');
       if (isAnswer) {
-        this.answer(target);
+        this.answer(target, this.lang);
       }
       this.answersEl.forEach((el) => {
         if (el.classList.contains('correct')) {
@@ -178,8 +181,9 @@ export class GamePage extends Page {
     });
   }
 
-  async answer(answer) {
+  async answer(answer, lang) {
     let answerText;
+    const langData = lang === 'en' || !lang ? birdsDataEn : birdsData;
 
     answerText = answer === 'timeout' ? 'timeout' : answer.innerHTML;
     if (answerText === this.rightAnswer) {
@@ -190,14 +194,14 @@ export class GamePage extends Page {
       await this.song.play();
       this.audio.pause();
       this.score += this.count;
-      this.birdImage.src = birdsData[this.level][this.currentQuestion].image;
-      this.birdText.textContent = birdsData[this.level][this.currentQuestion].name;
+      this.birdImage.src = langData[this.level][this.currentQuestion].image;
+      this.birdText.textContent = langData[this.level][this.currentQuestion].name;
       this.answerInfo.innerHTML = `
         <div class="answer-info__container">
-          <img class="bird-image" src="${birdsData[this.level][this.currentQuestion].image}" alt="bird">
+          <img class="bird-image" src="${langData[this.level][this.currentQuestion].image}" alt="bird">
           <ul class="answer-info__container-block">
-            <li class="block-item">${birdsData[this.level][this.currentQuestion].name}</li>
-            <li class="block-item">${birdsData[this.level][this.currentQuestion].species}</li>
+            <li class="block-item">${langData[this.level][this.currentQuestion].name}</li>
+            <li class="block-item">${langData[this.level][this.currentQuestion].species}</li>
             <li class="block-item">
               <div class="audio-player">
                 <div class="player-slider__container">
@@ -217,10 +221,10 @@ export class GamePage extends Page {
             </li>
           </ul>
         </div>
-        <p>${birdsData[this.level][this.currentQuestion].description}</p>
+        <p>${langData[this.level][this.currentQuestion].description}</p>
       `;
       this.nextLevelBtn.classList.add('btn-next');
-      this.audioPlayer(this.answerInfo, birdsData[this.level][this.currentQuestion].audio, this.audioInfo);
+      this.audioPlayer(this.answerInfo, langData[this.level][this.currentQuestion].audio, this.audioInfo);
       this.audioInfo.pause();
       this.audioInfo.currentTime = 0;
     } else if (answerText === 'timeout') {
@@ -235,10 +239,10 @@ export class GamePage extends Page {
       this.audioInfo.currentTime = 0;
       this.answerInfo.innerHTML = `
         <div class="answer-info__container">
-          <img class="bird-image" src="${birdsData[this.level][this.currentClick - 1].image}" alt="bird">
+          <img class="bird-image" src="${langData[this.level][this.currentClick - 1].image}" alt="bird">
           <ul class="answer-info__container-block">
-            <li class="block-item">${birdsData[this.level][this.currentClick - 1].name}</li>
-            <li class="block-item">${birdsData[this.level][this.currentClick - 1].species}</li>
+            <li class="block-item">${langData[this.level][this.currentClick - 1].name}</li>
+            <li class="block-item">${langData[this.level][this.currentClick - 1].species}</li>
             <li class="block-item">
               <div class="audio-player">
                 <div class="player-slider__container">
@@ -258,12 +262,11 @@ export class GamePage extends Page {
             </li>
           </ul>
         </div>
-        <p>${birdsData[this.level][this.currentClick - 1].description}</p>
+        <p>${langData[this.level][this.currentClick - 1].description}</p>
       `;
-      this.audioPlayer(this.answerInfo, birdsData[this.level][this.currentClick - 1].audio, this.audioInfo);
+      this.audioPlayer(this.answerInfo, langData[this.level][this.currentClick - 1].audio, this.audioInfo);
     }
-
-    this.scoreCont.innerHTML = `Score: ${this.score}`;
+    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
   }
 
   audioPlayer(block, song, audio) {
@@ -360,7 +363,7 @@ export class GamePage extends Page {
       this.audio.currentTime = 0;
       this.audioInfo.currentTime = 0;
       this.playBtn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
-      this.generateAnswers();
+      this.generateAnswers(this.lang);
     }
   }
 
@@ -391,7 +394,7 @@ export class GamePage extends Page {
     this.newGameBtn.addEventListener('click', () => {
       this.level = 0;
       this.score = 0;
-      this.scoreCont.innerHTML = `Score: ${this.score}`;
+      this.scoreCont.innerHTML = `${this.lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
       this.container.innerHTML = '';
       this.render()
       this.afterRender()
@@ -406,7 +409,8 @@ export class GamePage extends Page {
         name: input,
         score: this.score
       };
-      arr.push(res)
+      arr.push(res);
+      arr = arr.slice(0, 10);
       setToLocalStorage('score', JSON.stringify(arr));
     })
   }
@@ -431,7 +435,7 @@ export class GamePage extends Page {
     this.newGameBtn.addEventListener('click', () => {
       this.level = 0;
       this.score = 0;
-      this.scoreCont.innerHTML = `Score: ${this.score}`;
+      this.scoreCont.innerHTML = `${this.lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
       this.container.innerHTML = '';
       this.render()
       this.afterRender()
@@ -439,14 +443,26 @@ export class GamePage extends Page {
   }
 
   render() {
-    this.renderWrapper();
+    this.renderWrapper(this.lang);
+    const input = document.querySelector('.like-switch');
+    input.addEventListener('click', (event) => {
+      if (event.target.checked === false) {
+        this.container.innerHTML = '';
+        this.renderWrapper('ru')
+        this.afterRender('ru');
+      } else {
+        this.container.innerHTML = '';
+        this.renderWrapper('en');
+        this.afterRender('en');
+      }
+    })
     return this.container;
   }
 
-  async afterRender() {
+  async afterRender(lang) {
     this.findElements();
-    this.scoreCont.innerHTML = `Score: ${this.score}`;
-    this.generateAnswers();
+    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
+    this.generateAnswers(`${!lang ? this.lang : lang}`);
     this.listeners();
   }
 }

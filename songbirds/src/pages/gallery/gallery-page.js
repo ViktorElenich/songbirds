@@ -1,10 +1,11 @@
 import { Page } from "../../js/templates/pages";
 import { customCreateElement } from "../../js/utils/utils";
-import birdsData from "../../data/data";
+import { birdsDataEn, birdsData } from "../../data/data";
 
 export class GalleryPage extends Page {
   constructor(id) {
     super(id);
+    this.lang = localStorage.getItem('lang') || 'en';
   }
   renderWrapper() {
     const homeLink = document.querySelector('.link__home');
@@ -20,8 +21,8 @@ export class GalleryPage extends Page {
     this.scoreCont.innerHTML = `Score: 0`;
     const galleryPage = customCreateElement('div', 'gallery-page');
     const galleryContainer = customCreateElement('div', 'gallery-page__container');
-    console.log(birdsData.flat())
-    birdsData.flat().forEach((item) => {
+    const langData = this.lang === 'en' ? birdsDataEn : birdsData;
+    langData.flat().forEach((item) => {
       const galleryItems = customCreateElement('div', 'gallery-page__container-items');
       galleryItems.append(this.generateCards(item));
       galleryContainer.append(galleryItems);

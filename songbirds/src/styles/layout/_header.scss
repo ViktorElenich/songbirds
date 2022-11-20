@@ -14,6 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 
     &__navigation-container {
       .navigation-container__links {
@@ -61,6 +62,60 @@
 
     &__score {
       font-size: 1.8rem;
+    }
+
+    &__switch-lang {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 150px;
+
+      .like-switch {
+        position: absolute;
+        opacity: 0;
+        &:checked + .switch-cover > .switch-circle {
+          transform: translate3d(34px, 0, 0)
+        }
+        &:checked + .switch-cover > .switch-lang--ru {
+          opacity: 0
+        }
+        &:checked + .switch-cover > .switch-lang--en {
+          opacity: 1
+        }
+      }
+      .switch-cover {
+        width: 50px;
+        cursor: pointer;
+        border-radius: 17px;
+        background-color: transparent;
+        transition: background-color .4s;
+        border: 2px solid #dfdfe2;
+        position: relative;
+      }
+      .switch-circle {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #dfdfe2;
+        transition: transform 0.4s ease;
+        pointer-events: none;
+        position: relative;
+        z-index: 2;
+      }
+      .switch-lang {
+        position: absolute;
+        top: -2px;
+        color: #fff;
+        transition: opacity .2s;
+      }
+      .switch-lang--ru {
+        right: 6px;
+      }
+
+      .switch-lang--en {
+        left: 6px;
+        opacity: 0;
+      }
     }
   }
 }

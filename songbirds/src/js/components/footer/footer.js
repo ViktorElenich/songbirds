@@ -1,32 +1,21 @@
 import { Components } from "../../templates/components";
-import {customCreateElement} from "../../utils/utils";
+import { customCreateElement } from "../../utils/utils";
+import { links } from "../../../helpers";
 
-const links = [
-  {
-    className: 'footer-container__author',
-    href: 'https://github.com/ViktorElenich',
-    target: '_blank',
-    text: '© 2022 Viktor Elenich'
-  },
-  {
-    className: 'footer-container__logo-rss',
-    href: 'https://rs.school/js/',
-    target: '_blank',
-    text: ''
-  }
-]
+
 
 export class Footer extends Components {
 
   constructor(tagName, className, id) {
-    super(tagName, className, id)
+    super(tagName, className, id);
+    this.lang = localStorage.getItem('lang') || 'en';
   }
 
-  createFooterElements() {
+  createFooterElements(lang) {
     const footerContainer = customCreateElement('div', 'footer-container');
     links.forEach((el) => {
       const link = customCreateElement('a', `${el.className}`);
-      link.innerHTML = `${el.text}`;
+      link.innerHTML = `${el.text[lang]}`;
       link.href = `${el.href}`;
       link.target = `${el.target}`;
       footerContainer.append(link);
@@ -35,7 +24,17 @@ export class Footer extends Components {
   }
 
   render() {
-    this.createFooterElements();
+    this.createFooterElements(this.lang);
+    const input = document.querySelector('.like-switch');
+    input.addEventListener('click', (event) => {
+      if (event.target.checked === false) {
+        this.container.innerHTML = '';
+        this.createFooterElements('ru')
+      } else {
+        this.container.innerHTML = '';
+        this.createFooterElements('en')
+      }
+    })
     return this.container;
   }
 }

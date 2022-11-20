@@ -4,9 +4,12 @@ import { customCreateElement } from "../../js/utils/utils";
 export class MainPage extends Page {
   constructor(id) {
     super(id);
+    this.lang = localStorage.getItem('lang') || 'en';
   }
 
-  renderWrapper() {
+  renderWrapper(lang) {
+    const switchLang = document.querySelector('.header-container__switch-lang');
+    switchLang.style.pointerEvents = 'auto';
     const mainPage = customCreateElement('div', 'main-page');
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
@@ -21,7 +24,7 @@ export class MainPage extends Page {
         <div class="logo__container">
           <h1 class="logo"></h1>
         </div>
-        <a href="#game-page" class="btn-start">Start</a>
+        <a href="#game-page" class="btn-start">${lang === 'en' ? 'Start' : 'Старт'}</a>
         <div class="bird-container bird-container--one">
           <div class="bird bird--one"></div>
         </div>
@@ -37,12 +40,22 @@ export class MainPage extends Page {
       </div>
     `;
     this.scoreCont = document.querySelector('.header-container__score');
-    this.scoreCont.innerHTML = `Score: 0`;
+    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: 0`;
     this.container.append(mainPage);
   }
 
   render() {
-    this.renderWrapper();
+    this.renderWrapper(this.lang);
+    const input = document.querySelector('.like-switch');
+    input.addEventListener('click', (event) => {
+      if (event.target.checked === false) {
+        this.container.innerHTML = '';
+        this.renderWrapper('ru')
+      } else {
+        this.container.innerHTML = '';
+        this.renderWrapper('en')
+      }
+    })
     return this.container;
   }
 }
