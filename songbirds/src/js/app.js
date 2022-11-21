@@ -57,11 +57,11 @@ export class App {
   run() {
     App.container.append(this.header.render());
     App.container.append(this.main.render());
-    App.renderNewPage('game-page');
+    App.renderNewPage('gallery-page');
     App.container.append(this.footer.render());
     this.enableRouteChange();
 
-    window.location.replace("#game-page");
+    window.location.replace("#gallery-page");
     if (typeof window.history.replaceState == "function") {
       history.replaceState({}, "", window.location.href.slice(0, 0));
     }

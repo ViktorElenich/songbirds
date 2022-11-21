@@ -6,6 +6,17 @@
   height: calc(100vh - 135px);
   @include _540 {
     overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $gray-dark;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $nav-game-color;
+      border-radius: 20px;
+      border: 3px solid $gray-dark;
+    }
   }
 
   &__container {

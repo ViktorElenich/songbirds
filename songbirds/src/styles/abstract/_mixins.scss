@@ -25,6 +25,11 @@
     @content;
   }
 }
+@mixin _350 {
+  @media (max-width: 350px){
+    @content;
+  }
+}
 
 @keyframes fly-right-one {
   0% {
