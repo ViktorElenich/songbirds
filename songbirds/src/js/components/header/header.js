@@ -22,10 +22,17 @@ export class Header extends Components {
     const spanRu = customCreateElement('span', 'switch-lang switch-lang--ru', '', 'ru');
     const spanEn = customCreateElement('span', 'switch-lang switch-lang--en', '', 'en');
     const switchCircle = customCreateElement('div', 'switch-circle');
+    const burger  = customCreateElement('div', 'burger-container');
+    burger.innerHTML = `
+      <div id="burger">
+        <div class="bar topBar"></div>
+        <div class="bar btmBar"></div>
+      </div>
+    `
     switchCover.append(spanRu, spanEn, switchCircle);
     switchLang.append(input, switchCover);
 
-    headerNav.append(this.renderNav(this.lang))
+    headerNav.append(burger, this.renderNav(this.lang))
     headerContainer.append(headerNav, score, switchLang);
     this.container.append(headerContainer);
 
@@ -45,6 +52,9 @@ export class Header extends Components {
         headerNav.append(this.renderNav(this.lang));
         score.innerHTML = 'Score: 0';
       }
+    });
+    burger.addEventListener('click', () => {
+      headerNav.classList.toggle('menu-opened')
     })
   }
 

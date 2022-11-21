@@ -5,6 +5,21 @@
     @content;
   }
 }
+@mixin _1000 {
+  @media (max-width: 1000px){
+    @content;
+  }
+}
+@mixin _540 {
+  @media (max-width: 540px){
+    @content;
+  }
+}
+@mixin _380 {
+  @media (max-width: 380px){
+    @content;
+  }
+}
 
 @keyframes fly-right-one {
   0% {
