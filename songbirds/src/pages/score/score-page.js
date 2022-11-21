@@ -22,6 +22,9 @@ export class ScorePage extends Page {
     this.scoreCont = document.querySelector('.header-container__score');
     this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: 0`;
 
+    const switchLang = document.querySelector('.header-container__switch-lang');
+    switchLang.style.pointerEvents = 'auto';
+
     const scorePage = customCreateElement('div', 'score-page');
     const scoreContainer = customCreateElement('div', 'score-page__container');
     const scoreWrapper = customCreateElement('div', 'res-wrapper');

@@ -19,6 +19,10 @@ export class GalleryPage extends Page {
 
     this.scoreCont = document.querySelector('.header-container__score');
     this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: 0`;
+
+    const switchLang = document.querySelector('.header-container__switch-lang');
+    switchLang.style.pointerEvents = 'auto';
+
     const galleryPage = customCreateElement('div', 'gallery-page');
     const galleryContainer = customCreateElement('div', 'gallery-page__container');
     const langData = lang === 'en' || !lang ? birdsDataEn : birdsData;

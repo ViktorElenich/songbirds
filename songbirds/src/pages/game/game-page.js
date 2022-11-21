@@ -33,6 +33,9 @@ export class GamePage extends Page {
     galleryLink.classList.remove('active');
     gameLink.classList.add('active');
 
+    this.scoreCont = document.querySelector('.header-container__score');
+    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: 0`;
+
     const gameContainer = customCreateElement('div', 'game-page__container');
     const gameContainerNav = customCreateElement('div', 'game-page__container-navigation');
     const ul = customCreateElement('ul', 'navigation');
@@ -43,8 +46,8 @@ export class GamePage extends Page {
       ul.append(li);
       li.id === this.level ? li.className = 'navigation-item' : 'navigation-item level';
       gameContainerNav.append(ul);
-    });
 
+    });
     const gameContainerQuestion = customCreateElement('div', 'game-page__container-question');
     const questionImg = customCreateElement('img', 'bird-image');
     questionImg.src = './assets/birdBlock.jpg';
@@ -70,14 +73,15 @@ export class GamePage extends Page {
         <i class="fa fa-volume-up"></i>
       </div>
     `;
-    questionAudioContainer.append(audioPlayer);
 
+    questionAudioContainer.append(audioPlayer);
     questionBlockUl.append(questionText, questionAudioContainer);
     questionBlock.append(questionBlockUl);
-    gameContainerQuestion.append(questionImg, questionBlock);
 
+    gameContainerQuestion.append(questionImg, questionBlock);
     const gameAnswerContainer = customCreateElement('div', 'game-page__container-answer');
     const answerBlock = customCreateElement('div', 'answer-container');
+
     const answerInfo = customCreateElement('div', 'answer-info');
 
     answerBlock.innerHTML = `
@@ -98,10 +102,9 @@ export class GamePage extends Page {
     `;
 
     gameAnswerContainer.append(answerBlock, answerInfo);
-
     const nextLevelBtn = customCreateElement('button', 'game-page__container-nextLevel-btn');
-    nextLevelBtn.textContent = `${lang === 'en' ? 'Next Level' : 'Следующий уровень'}`;
 
+    nextLevelBtn.textContent = `${lang === 'en' ? 'Next Level' : 'Следующий уровень'}`;
     gameContainer.append(gameContainerNav, gameContainerQuestion, gameAnswerContainer, nextLevelBtn);
     gamePage.append(gameContainer);
     this.container.append(gamePage);
@@ -170,6 +173,10 @@ export class GamePage extends Page {
       this.answersEl.forEach((el) => {
         if (el.classList.contains('correct')) {
           target.classList.remove('incorrect')
+        }
+        if (el.classList.contains('correct') || el.classList.contains('incorrect')) {
+          const switchLang = document.querySelector('.header-container__switch-lang');
+          switchLang.style.pointerEvents = 'none';
         }
       })
     });
@@ -473,7 +480,6 @@ export class GamePage extends Page {
 
   async afterRender(lang) {
     this.findElements();
-    this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: ${this.score}`;
     this.generateAnswers(`${!lang ? this.lang : lang}`);
     this.listeners();
   }
