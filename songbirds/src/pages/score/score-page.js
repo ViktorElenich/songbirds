@@ -6,9 +6,10 @@ export class ScorePage extends Page {
   constructor(id) {
     super(id);
     this.result = JSON.parse(localStorage.getItem('score'));
+    this.lang = localStorage.getItem('lang') || 'en';
   }
 
-  renderWrapper() {
+  renderWrapper(lang) {
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
     const scoreLink = document.querySelector('.link__score');
@@ -19,7 +20,7 @@ export class ScorePage extends Page {
     scoreLink.classList.add('active');
 
     this.scoreCont = document.querySelector('.header-container__score');
-    this.scoreCont.innerHTML = `Score: 0`;
+    this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: 0`;
 
     const scorePage = customCreateElement('div', 'score-page');
     const scoreContainer = customCreateElement('div', 'score-page__container');
@@ -27,13 +28,15 @@ export class ScorePage extends Page {
     const table = customCreateElement('table', 'table');
     const tr = customCreateElement('tr', 'table-tr');
     tableTh.map((el) => {
-      const th = customCreateElement('th', 'table-th', '', `${el}`);
-      tr.append(th);
+      el.th[lang].map((item) => {
+        const th = customCreateElement('th', 'table-th', '', `${item}`);
+        tr.append(th);
+      })
     });
     table.append(tr);
     const arr = [];
     if (this.result == null) {
-      const tr = 'no result'
+      const tr = `${lang === 'en' || !lang ? 'no result' : 'Результаты не найдены'}`
       table.append(tr)
     } else {
       this.result.map((el, idx) => {
@@ -53,7 +56,17 @@ export class ScorePage extends Page {
   }
 
   render() {
-    this.renderWrapper();
+    this.renderWrapper(this.lang);
+    const input = document.querySelector('.like-switch');
+    input.addEventListener('click', (event) => {
+      if (event.target.checked === false) {
+        this.container.innerHTML = '';
+        this.renderWrapper('ru')
+      } else {
+        this.container.innerHTML = '';
+        this.renderWrapper('en');
+      }
+    })
     return this.container;
   }
 }

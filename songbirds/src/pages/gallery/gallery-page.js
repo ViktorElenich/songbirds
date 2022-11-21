@@ -7,7 +7,7 @@ export class GalleryPage extends Page {
     super(id);
     this.lang = localStorage.getItem('lang') || 'en';
   }
-  renderWrapper() {
+  renderWrapper(lang) {
     const homeLink = document.querySelector('.link__home');
     const gameLink = document.querySelector('.link__game');
     const scoreLink = document.querySelector('.link__score');
@@ -18,10 +18,10 @@ export class GalleryPage extends Page {
     galleryLink.classList.add('active');
 
     this.scoreCont = document.querySelector('.header-container__score');
-    this.scoreCont.innerHTML = `Score: 0`;
+    this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: 0`;
     const galleryPage = customCreateElement('div', 'gallery-page');
     const galleryContainer = customCreateElement('div', 'gallery-page__container');
-    const langData = this.lang === 'en' ? birdsDataEn : birdsData;
+    const langData = lang === 'en' || !lang ? birdsDataEn : birdsData;
     langData.flat().forEach((item) => {
       const galleryItems = customCreateElement('div', 'gallery-page__container-items');
       galleryItems.append(this.generateCards(item));
@@ -152,7 +152,17 @@ export class GalleryPage extends Page {
   }
 
   render() {
-    this.renderWrapper();
+    this.renderWrapper(this.lang);
+    const input = document.querySelector('.like-switch');
+    input.addEventListener('click', (event) => {
+      if (event.target.checked === false) {
+        this.container.innerHTML = '';
+        this.renderWrapper('ru')
+      } else {
+        this.container.innerHTML = '';
+        this.renderWrapper('en')
+      }
+    })
     return this.container;
   }
 }

@@ -24,7 +24,7 @@ export class MainPage extends Page {
         <div class="logo__container">
           <h1 class="logo"></h1>
         </div>
-        <a href="#game-page" class="btn-start">${lang === 'en' ? 'Start' : 'Старт'}</a>
+        <a href="#game-page" class="btn-start">${lang === 'en' || !lang ? 'Start' : 'Старт'}</a>
         <div class="bird-container bird-container--one">
           <div class="bird bird--one"></div>
         </div>
@@ -40,7 +40,7 @@ export class MainPage extends Page {
       </div>
     `;
     this.scoreCont = document.querySelector('.header-container__score');
-    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: 0`;
+    this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: 0`;
     this.container.append(mainPage);
   }
 

@@ -100,4 +100,11 @@ export const links = [
   }
 ]
 
-export const tableTh = ['№', 'Name', 'Score']
+export const tableTh = [
+  {
+    th: {
+      en: ['№', 'Name', 'Score'],
+      ru: ['№', 'Имя', 'Счет']
+    }
+  }
+]

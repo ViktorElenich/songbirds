@@ -93,7 +93,7 @@ export class GamePage extends Page {
 
     answerInfo.innerHTML = `
       <p style="text-align: center; font-size: 2vw;">
-        ${this.lang === 'en' ? 'Play song. Choose correct answer' : 'Послушайте плеер. Выберите птицу из списка'}
+        ${lang === 'en' ? 'Play song. Choose correct answer' : 'Послушайте плеер. Выберите птицу из списка'}
       </p>
     `;
 
@@ -177,7 +177,7 @@ export class GamePage extends Page {
       this.choiceAnswer(event);
     });
     this.nextLevelBtn.addEventListener('click', () => {
-      this.nextLevel()
+      this.nextLevel(this.lang)
     });
   }
 
@@ -339,12 +339,12 @@ export class GamePage extends Page {
     });
   }
 
-  nextLevel() {
+  nextLevel(lang) {
     if (this.level === 5) {
       if (this.score === 30){
-        this.showResult();
+        this.showResult(lang);
       } else {
-        this.showModalResult()
+        this.showModalResult(lang);
       }
     }
     if (this.nextLevelBtn.classList.contains('btn-next')) {
@@ -356,18 +356,18 @@ export class GamePage extends Page {
       this.birdImage.src = './assets/birdBlock.jpg';
       this.questionText.textContent = '********';
       this.answerInfo.innerHTML = `
-      <p style="text-align: center; font-size: 2vw;">Послушайте плеер. Выберите птицу из списка</p>
+      <p style="text-align: center; font-size: 2vw;">${lang === 'en' || !lang ? 'Play song. Choose correct answer' : 'Послушайте плеер. Выберите птицу из списка'}</p>
     `;
       this.audioInfo.pause();
       this.audio.pause();
       this.audio.currentTime = 0;
       this.audioInfo.currentTime = 0;
       this.playBtn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
-      this.generateAnswers(this.lang);
+      this.generateAnswers(lang);
     }
   }
 
-  showResult(){
+  showResult(lang){
     const resultModal = customCreateElement('div', 'modal__container show-modal');
     resultModal.innerHTML = `
       <div class="modal__content">
@@ -375,11 +375,19 @@ export class GamePage extends Page {
         <div class="modal__close close-modal" title="Close">
           <i class="bx bx-x"></i>
         </div>
-        <h3 class="modal__title">Congratulations! Your score is ${this.score} out of 30</h3>
-        <input type="text" placeholder="Enter Your Name" class="reg" />
+        <h3 class="modal__title">
+          ${lang === 'en' || !lang
+            ? `Congratulations! Your score is ${this.score} out of 30`
+            : `Поздравляю! Ваш счет ${this.score} из 30`}
+        </h3>
+        <input type="text" placeholder="${lang === 'en' || !lang ? 'Enter Your Name' : 'Введите имя'}" class="reg" />
         <div class="btn__container">
-          <button class="modal__button modal__button-width new">New Game</button>
-          <a href="#score-page" class="modal__button modal__button-width save">Save</a>
+          <button class="modal__button modal__button-width new">
+            ${lang === 'en' || !lang ? 'New Game' : 'Новая игра'}
+          </button>
+          <a href="#score-page" class="modal__button modal__button-width save">
+            ${lang === 'en' || !lang ? 'Save' : 'Сохранить'}
+          </a>
         </div>
       </div>
     `
@@ -394,7 +402,7 @@ export class GamePage extends Page {
     this.newGameBtn.addEventListener('click', () => {
       this.level = 0;
       this.score = 0;
-      this.scoreCont.innerHTML = `${this.lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
+      this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: ${this.score}`;
       this.container.innerHTML = '';
       this.render()
       this.afterRender()
@@ -414,15 +422,19 @@ export class GamePage extends Page {
       setToLocalStorage('score', JSON.stringify(arr));
     })
   }
-  showModalResult() {
+  showModalResult(lang) {
     const modal = customCreateElement('div', 'modal__container show-modal');
     modal.innerHTML = `
       <div class="modal__content">
         <div class="modal__close close-modal" title="Close">
           <i class="bx bx-x"></i>
         </div>
-        <h3 class="modal__title">Your score is ${this.score} out of 30</h3>
-        <button class="modal__button modal__button-width new">Try Again</button>
+        <h3 class="modal__title">
+          ${lang === 'en' || !lang ? `Your score is ${this.score} out of 30` : `Ваш счет ${this.score} из 30`}
+        </h3>
+        <button class="modal__button new">
+          ${lang ==='en' || !lang ? 'Try Again' : 'Играть снова'}
+        </button>
       </div>
     `;
     this.gamePage.append(modal)
@@ -435,7 +447,7 @@ export class GamePage extends Page {
     this.newGameBtn.addEventListener('click', () => {
       this.level = 0;
       this.score = 0;
-      this.scoreCont.innerHTML = `${this.lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
+      this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: ${this.score}`;
       this.container.innerHTML = '';
       this.render()
       this.afterRender()
@@ -461,7 +473,7 @@ export class GamePage extends Page {
 
   async afterRender(lang) {
     this.findElements();
-    this.scoreCont.innerHTML = `${lang === 'en' ? 'Score' : 'Счет'}: ${this.score}`;
+    this.scoreCont.innerHTML = `${lang === 'en' || !lang ? 'Score' : 'Счет'}: ${this.score}`;
     this.generateAnswers(`${!lang ? this.lang : lang}`);
     this.listeners();
   }
