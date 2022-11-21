@@ -60,12 +60,14 @@ export class GamePage extends Page {
     const audioPlayer = customCreateElement('div', 'audio-player');
     audioPlayer.innerHTML = `
       <div class="player-slider__container">
-      <div class="playpause-track">
-        <i class="fa fa-play-circle fa-5x"></i>
-      </div>
-        <div class="current-time">00:00</div>
-        <input type="range" min="1" max="100" value="0" class="seek_slider">
-        <div class="total-duration">00:00</div>
+        <div class="playpause-track">
+          <i class="fa fa-play-circle fa-5x"></i>
+        </div>
+        <div class="input-time">
+          <div class="current-time">00:00</div>
+          <input type="range" min="1" max="100" value="0" class="seek_slider">
+          <div class="total-duration">00:00</div>
+        </div>
       </div>
       <div class="player-slider__container">
         <i class="fa fa-volume-down"></i>
@@ -215,9 +217,11 @@ export class GamePage extends Page {
                   <div class="playpause-track">
                     <i class="fa fa-play-circle fa-5x"></i>
                   </div>
-                  <div class="current-time">00:00</div>
-                  <input type="range" min="1" max="100" value="0" class="seek_slider">
-                  <div class="total-duration">00:00</div>
+                  <div class="input-time">
+                    <div class="current-time">00:00</div>
+                    <input type="range" min="1" max="100" value="0" class="seek_slider">
+                    <div class="total-duration">00:00</div>
+                  </div>
                 </div>
                 <div class="player-slider__container">
                   <i class="fa fa-volume-down"></i>
@@ -256,9 +260,11 @@ export class GamePage extends Page {
                   <div class="playpause-track">
                     <i class="fa fa-play-circle fa-5x"></i>
                   </div>
-                  <div class="current-time">00:00</div>
-                  <input type="range" min="1" max="100" value="0" class="seek_slider">
-                  <div class="total-duration">00:00</div>
+                  <div class="input-time">
+                    <div class="current-time">00:00</div>
+                    <input type="range" min="1" max="100" value="0" class="seek_slider">
+                    <div class="total-duration">00:00</div>
+                  </div>
                 </div>
                 <div class="player-slider__container">
                   <i class="fa fa-volume-down"></i>

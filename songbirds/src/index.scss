@@ -43,6 +43,10 @@ button {
   background: #1111115e;
   position: relative;
 
+  @include _540 {
+    font-size: 12px;
+  }
+
   &:before {
     content: '';
     background: $btn-gradient;
