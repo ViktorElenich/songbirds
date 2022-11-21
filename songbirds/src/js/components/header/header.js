@@ -55,7 +55,7 @@ export class Header extends Components {
     });
     burger.addEventListener('click', () => {
       headerNav.classList.toggle('menu-opened')
-    })
+    });
   }
 
   renderNav(lang) {
@@ -66,6 +66,10 @@ export class Header extends Components {
       a.href = `#${link.id}`;
       a.innerHTML = link.text[lang];
       li.append(a);
+      li.addEventListener('click', () => {
+        const nav = document.querySelector('.header-container__navigation-container')
+        nav.classList.remove('menu-opened')
+      })
       headerNavUl.append(li);
     })
     return headerNavUl;
