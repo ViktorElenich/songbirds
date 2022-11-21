@@ -57,11 +57,11 @@ export class App {
   run() {
     App.container.append(this.header.render());
     App.container.append(this.main.render());
-    App.renderNewPage('gallery-page');
+    App.renderNewPage('main-page');
     App.container.append(this.footer.render());
     this.enableRouteChange();
 
-    window.location.replace("#gallery-page");
+    window.location.replace("#main-page");
     if (typeof window.history.replaceState == "function") {
       history.replaceState({}, "", window.location.href.slice(0, 0));
     }

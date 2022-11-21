@@ -195,6 +195,9 @@
       align-items: center;
       position: absolute;
       right: 170px;
+      @include _1400 {
+        right: 190px;
+      }
       @include _1000 {
         right: 125px;
       }

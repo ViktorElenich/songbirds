@@ -1,5 +1,10 @@
 @import './_variables';
 
+@mixin _1400 {
+  @media (min-width: 1400px){
+    @content;
+  }
+}
 @mixin _1200 {
   @media (min-width: 1200px){
     @content;

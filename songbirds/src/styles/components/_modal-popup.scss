@@ -1,4 +1,5 @@
 @import "../abstract/_variables";
+@import "../abstract/_mixins";
 
 .modal__container {
   position: absolute;
@@ -25,6 +26,9 @@
     border-radius: 1rem;
     transition: all 0.3s;
     transform: translateY(10%);
+    @include _768 {
+      width: 65%;
+    }
 
     .modal__img {
       display: block;
@@ -46,6 +50,9 @@
     .modal__title {
       font-weight: 500;
       margin-bottom: 10px;
+      @include _380 {
+        font-size: 16px;
+      }
     }
 
     .modal__button {
@@ -53,6 +60,13 @@
       background: $nav-game-color;
       border-radius: 0.5rem;
       transition: 0.3s;
+      white-space: nowrap;
+      @include _768 {
+        font-size: 14px;
+      }
+      @include _380 {
+        padding: 5px;
+      }
     }
 
     .btn__container {
@@ -71,6 +85,12 @@
       border-radius: 6px;
       background: $nav-game-color;
       position: relative;
+      @include _768 {
+        padding: 15px 10px;
+      }
+      @include _380 {
+        padding: 10px 5px;
+      }
       &:before {
         content: '';
         background: $btn-gradient;
@@ -129,6 +149,9 @@
       &::placeholder {
         color:#aaaaaa;
         font-size: 0.875rem;
+      }
+      @include _380 {
+        padding: 0.7rem 1rem;
       }
     }
   }
