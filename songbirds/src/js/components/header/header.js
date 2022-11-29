@@ -42,14 +42,14 @@ export class Header extends Components {
         setToLocalStorage('input', 'false');
         this.lang = 'ru';
         headerNav.innerHTML = '';
-        headerNav.append(this.renderNav(this.lang));
+        headerNav.append(burger, this.renderNav(this.lang));
         score.innerHTML = 'Счет: 0';
       } else {
         setToLocalStorage('lang', 'en');
         setToLocalStorage('input', 'true');
         this.lang = 'en';
         headerNav.innerHTML = '';
-        headerNav.append(this.renderNav(this.lang));
+        headerNav.append(burger, this.renderNav(this.lang));
         score.innerHTML = 'Score: 0';
       }
     });
