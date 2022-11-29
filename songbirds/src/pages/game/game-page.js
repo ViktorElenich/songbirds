@@ -198,6 +198,9 @@ export class GamePage extends Page {
     if (answerText === this.rightAnswer) {
       this.isCorrect = true;
       this.correctAnswers.push(this.questions[this.currentQuestion]);
+      if (answer.classList.contains('correct')){
+        this.count = 0;
+      }
       answer.classList.add('correct');
       this.song.src = `./assets/ok.mp3`;
       await this.song.play();
@@ -238,12 +241,12 @@ export class GamePage extends Page {
       this.audioPlayer(this.answerInfo, langData[this.level][this.currentQuestion].audio, this.audioInfo);
       this.audioInfo.pause();
       this.audioInfo.currentTime = 0;
-    } else if (answerText === 'timeout') {
-      this.isCorrect = false;
-    } else {
+    }  else {
       this.isCorrect = false;
       answer.classList.add('incorrect');
-      this.count--;
+      if (answer.classList.contains('incorrect')) {
+        this.count--;
+      }
       this.song.src = `./assets/fail.mp3`;
       await this.song.play();
       this.audioInfo.pause();
