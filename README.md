@@ -1,3 +1,3 @@
-#Online Zoo#
+# Songbirds #
 
-https://online-zoo-viktorelenich.netlify.app/
+https://viktorelenich-songbirds.netlify.app/
